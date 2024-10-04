@@ -1,0 +1,17 @@
+.buttonThongKe{
+    background-color: #5bbb3d; /* Màu nền đỏ */
+    color: white; /* Màu chữ trắng */
+    border: none; /* Không có viền */
+    padding: 5px 10px; /* Khoảng cách bên trong */
+    text-align: center; /* Căn giữa chữ */
+    text-decoration: none; /* Không gạch chân */
+    display: inline-block; /* Hiển thị inline */
+    font-size: 16px; /* Kích thước chữ */
+    margin: 4px 0px; /* Khoảng cách xung quanh */
+    cursor: pointer; /* Con trỏ chuột khi di chuột qua */
+    border-radius: 5px; /* Bo góc */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+.buttonThongKe:hover {
+    background-color: #1e6109; /* Màu nền khi di chuột qua */
+}

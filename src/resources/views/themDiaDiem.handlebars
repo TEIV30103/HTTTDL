@@ -1,0 +1,107 @@
+<script>
+    var arrCHTDD =[];
+</script>
+{{#if arrCH}}
+    <script>
+        {{#each arrCH}}
+            arrCHTDD.push({
+                maCH: "{{this.maCH}}",
+                tenCH: "{{this.tenCH}}",
+                diaChi: "{{this.diaChi}}",
+                img: "{{this.img}}",
+                kinhDo: "{{this.kinhDo}}",
+                viDo: "{{this.viDo}}"
+            });
+        {{/each}}   
+    </script>
+{{/if}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="/themDiaDiem.js"></script>
+    <script type="text/javascript" src="/left_themDiaDiem.js"></script>
+</head>
+<body>
+    <div id="left_right">
+        <div id="left">
+            <div id="btHome">
+                <img class="img" src="img/home.png" alt="loianh">
+                <p>Trang Chủ</p>
+                {{!-- <p id="btHome">Trang Chủ</p> --}}
+            </div>
+            <div id="btThemDiaDiem">
+                <img class="img" src="img/them.png" alt="loianh">
+                <p>Thêm Địa Điểm</p>
+            </div>
+            <div id="btThongKe">
+                <img class="img" src="img/them.png" alt="loianh">
+                <p>Thống Kê</p>
+            </div>
+        </div>
+
+
+
+
+        <div id="right">
+            <div id="mapThemDiaDiem" style="width: 95%;  height: 300px; border: 1px solid #000; margin: 5px 20px;"></div>
+
+            <form action="" method="post" style="width: 90%; margin-left: 25px; margin-top: 25px; float: left;">
+                <div style="width: 50%; float:left">
+                    <div class="form-outline form-white mb-2">
+                        <label class="form-label" for="maCH">Mã Cửa Hàng</label>
+                        <input type="text" name="maCH" id="maCH" class="form-control form-control-lg" required readonly  style="width: 90%;"/>
+                    </div>
+
+                    <div class="form-outline form-white mb-2">
+                        <label class="form-label" for="tenDiaDiem">Tên Địa Điểm</label>
+                        <input type="text" name="tenDiaDiem" id="tenDiaDiem" class="form-control form-control-lg" required  style="width: 90%;"/>
+                    </div>
+
+                    <div class="form-outline form-white mb-2">
+                        <label class="form-label" for="diaChi">Địa Chỉ</label>
+                        <input type="text" name="diaChi" id="diaChi" class="form-control form-control-lg" required style="width: 90%;"/>
+                    </div>
+
+                    <div class="form-outline form-white mb-2">
+                        <input class="btn-submit" type="submit" value=" + Thêm">
+                        {{!-- <input type="button" id="btHome" value="Quay về"> --}}
+                    </div>
+
+                </div>
+                
+                <div style="width: 50%; float:right;">
+                    <div class="form-outline form-white mb-2">
+                        <label class="form-label" for="hinhAnh">Hình Ảnh</label>
+                        <input type="file" name="hinhAnh" id="hinhAnh" class="form-control form-control-lg" required readonly style="width: 90%;"/>
+                    </div>
+
+                    <div class="form-outline form-white mb-2">
+                        <label class="form-label" for="kinhDo">Kinh Độ</label>
+                        <input type="text" name="kinhDo" id="kinhDo" class="form-control form-control-lg" required readonly style="width: 90%;"/>
+                    </div>
+
+                    <div class="form-outline form-white mb-2">
+                        <label class="form-label" for="viDo">Vĩ Độ</label>
+                        <input type="text" name="viDo" id="viDo" class="form-control form-control-lg" required readonly style="width: 90%;"/>
+                    </div>
+
+                    {{!-- <div class="form-outline form-white mb-2">
+                        <input type="submit" value=" + Thêm">
+                        <input type="button" id="btHome" value="Quay về">
+                    </div> --}}
+                </div>
+
+                
+            </form>
+        </div>
+
+
+    </div>
+    
+
+    
+</body>
+</html>

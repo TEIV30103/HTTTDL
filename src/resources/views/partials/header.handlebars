@@ -1,0 +1,22 @@
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+    <span style="font-size: 24px; font-weight: bold; color: #343a40;">TGDD</span>
+    
+    {{#if username }}
+        <div id="btTimKiem">
+            <img id="imgTimKiem" src="/img/timKiem.png" alt="search">
+            <div id="TTTK">
+                <select name="" id="mucTimKiem">
+                    <option value="maCH">Mã Cửa Hàng</option>
+                </select>
+                <input type="text" id="thongTinTimKiem">
+            </div>
+            
+        </div>
+        
+        <button id="btDangXuat" class="bt" style="background: none; border: none; cursor: pointer;">
+            <img id="imgLogout" src="/img/logout.png" alt="Logout" style="width: 24px; height: 24px;">
+        </button>
+    {{!-- {{else}}
+        <button id="btDangNhap" style="padding: 8px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px;">Đăng Nhập</button> --}}
+    {{/if}}
+</header>

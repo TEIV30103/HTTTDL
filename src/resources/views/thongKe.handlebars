@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/thongKe.css">
+    <script type="text/javascript" src="/buttonXemChiTiet.js"></script>
+</head>
+<body>
+    <div id="left_right">
+        <div id="left">
+            <div id="btHome">
+                <img class="img" src="img/home.png" alt="loianh">
+                <p>Trang Chủ</p>
+                {{!-- <p id="btHome">Trang Chủ</p> --}}
+            </div>
+            <div id="btThemDiaDiem">
+                <img class="img" src="img/them.png" alt="loianh">
+                <p>Thêm Địa Điểm</p>
+            </div>
+            
+            {{!-- <input style="margin: 5px;" type="button" value="Thêm Địa Điểm" id="btThemDiaDiem" /> --}}
+            <div id="btThongKe"><img class="img" src="img/them.png" alt="loianh">
+                <p>Thống Kê</p>
+            </div>
+        </div>
+
+        <div id="right">
+            <form action="" method="post">
+                {{!-- <input type="text" name="maCH" id="maCH" value=""> --}}
+                <p>Tên Cửa Hàng</p>
+                <select name="tenCH" id="tenCH">
+                    <option value="">Tên Cửa Hàng</option>
+                    {{#if arrCH}}
+                        {{#each arrCH}}
+                            <option value="{{this.tenCH}}">{{this.tenCH}}</option>
+                        {{/each}}
+                    {{/if}}
+                </select>
+                {{!-- <input type="text" name="maHH" value="" hidden> --}}
+                <p>Tên Hàng Hoá</p>
+                <select name="tenHH" id="tenHH">
+                    <option value="">Tên Hàng Hoá</option>
+                    {{#if arrHH}}
+                        {{#each arrHH}}
+                            <option value="{{this.tenHH}}">{{this.tenHH}}</option>
+                        {{/each}}
+                    {{/if}}
+                </select>
+
+                <p>Từ Ngày</p>
+                <input type="date" name="tuNgay" value="">
+
+                <p>Đến Ngày</p>
+                <input type="date" name="denNgay" value="">
+                <input type="submit" value="Thống Kê">
+            </form>
+            <div id="ketQuaTimKiem">
+                <span>Số lượng: </span>
+                <span id="soLanBan">{{soLuong}}</span>
+                <div>
+                    <button id="xemChiTiet">Xem chi tiết</button>
+                    <div id="thongTinXemChiTiet">
+                        <table>
+                            <tr>
+                                <th>Mã hoá đơn</th>
+                                <th>Hàng hoá</th>
+                                <th>Số lượng</th>
+                                <th>Giá tiền của sản phẩm</th>
+                            </tr>
+                            {{#each thongKe}}
+                                <tr>
+                                    <td>{{this.maHD}}</td>
+                                    <td>{{this.tenHH}}</td>
+                                    <td>{{this.soLuong}} {{this.dvt}}</td>
+                                    <td>{{this.giaTien}}</td>
+                                </tr>
+                            {{/each}}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    (function() {
+    window.onload = function() {
+
+        const tenCH = getParameterByName('tenCH');
+        $("#tenCH").val(tenCH);
+    };  
+    })();
+
+    {{#if thongKe}}
+        $("#ketQuaTimKiem").css("display","block");
+    {{/if}} 
+</script>
+
