@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/thongKe.css">
     <script type="text/javascript" src="/buttonXemChiTiet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="/thongKe.js"></script>
 </head>
 <body>
     <div id="left_right">
@@ -21,7 +23,7 @@
             </div>
             
             {{!-- <input style="margin: 5px;" type="button" value="Thêm Địa Điểm" id="btThemDiaDiem" /> --}}
-            <div id="btThongKe"><img class="img" src="img/them.png" alt="loianh">
+            <div id="btThongKe"><img class="img" src="img/thongKe.png" alt="loianh">
                 <p>Thống Kê</p>
             </div>
         </div>
@@ -50,10 +52,10 @@
                 </select>
 
                 <p>Từ Ngày</p>
-                <input type="date" name="tuNgay" value="">
+                <input type="date" id="tuNgay" name="tuNgay" value="">
 
                 <p>Đến Ngày</p>
-                <input type="date" name="denNgay" value="">
+                <input type="date" id="denNgay" name="denNgay" value="">
                 <input type="submit" value="Thống Kê">
             </form>
             <div id="ketQuaTimKiem">
@@ -62,6 +64,14 @@
                 <div>
                     <button id="xemChiTiet">Xem chi tiết</button>
                     <div id="thongTinXemChiTiet">
+                        <div>
+                            <div style="float: left; margin-right: 80px">
+                                <canvas id="thongKeLuotBan" max-width="400" max-height="400"></canvas>
+                            </div>
+                            <div style="float: right; margin-right: 140px">
+                                <canvas id="thongKeDanhThu" max-width="400" max-height="400"></canvas>
+                            </div>
+                        </div>
                         <table>
                             <tr>
                                 <th>Mã hoá đơn</th>
@@ -74,10 +84,19 @@
                                     <td>{{this.maHD}}</td>
                                     <td>{{this.tenHH}}</td>
                                     <td>{{this.soLuong}} {{this.dvt}}</td>
-                                    <td>{{this.giaTien}}</td>
+                                    
+                                    <td id="{{this.giaTien}}">
+                                        <script>
+                                             
+                                            //document.getElementById("{{this.giaTien}}").innerHTML = Intl.NumberFormat('en-US').format({{this.giaTien}})
+                                            $("#{{this.giaTien}}").html(Intl.NumberFormat('en-US').format({{this.giaTien}}))
+                                        </script>
+                                        đ
+                                    </td>
                                 </tr>
                             {{/each}}
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -92,11 +111,28 @@
 
         const tenCH = getParameterByName('tenCH');
         $("#tenCH").val(tenCH);
+
+        {{#if thongKe}}
+            $("#tuNgay").val("{{tuNgay}}");
+            $("#denNgay").val("{{denNgay}}");
+            var soLuong = {{soLuong}}
+            var tongSoLuong = {{tongSoLuong}}
+            var tongDanhThu = {{tongDanhThu}}
+            var tenHHTK = "";
+            var danhThuHHTK = 0;
+            {{#each thongKe}}
+                $("#tenCH").val("{{this.tenCH}}");
+                $("#tenHH").val("{{this.tenHH}}");
+                tenHHTK = "{{this.tenHH}}"
+                danhThuHHTK += {{this.giaTien}}
+            {{/each}}
+            thongKe(tenHHTK,soLuong,tongSoLuong)
+
+            thongKeDanhThu(tenHHTK,danhThuHHTK,tongDanhThu)
+        {{/if}} 
     };  
     })();
 
-    {{#if thongKe}}
-        $("#ketQuaTimKiem").css("display","block");
-    {{/if}} 
+    
 </script>
 

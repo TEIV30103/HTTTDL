@@ -14,7 +14,7 @@
             $("#viDo").val(event.latLng.lng());
             //alert('Coordinates: ' + event.latLng.lat() + ', ' + event.latLng.lng());
         });
-        console.log(arrCHTDD);
+        // console.log(arrCHTDD);
         setTimeout(() => {
             var arrMaCH=[];
             for (let i = 0; i < arrCHTDD.length; i++) {
@@ -35,30 +35,39 @@
             }
             var dem = arrCHTDD.length +1;
             var maCH;
-            console.log(arrMaCH)
-            while(true){
-                if (dem < 10){
-                    maCH = "CH00" + dem;
-                }
-                else if (dem < 100){
-                    maCH = "CH0" + dem;
-                }
-                else{
-                    maCH = "CH" + dem;
-                }
-                var bool = false;
-                for (i=0;i<arrMaCH.length;i++){
-                    if (arrMaCH[i]==maCH){
-                        bool = true
+            var tenCH;
+            // console.log(arrMaCH)
+            if (getParameterByName('maCH') == null){
+                while(true){
+                    if (dem < 10){
+                        maCH = "CH00" + dem;
+                        tenCH = "TGDD00" + dem;
+    
                     }
+                    else if (dem < 100){
+                        maCH = "CH0" + dem;
+                        tenCH = "TGDD0" + dem;
+                    }
+                    else{
+                        maCH = "CH" + dem;
+                        tenCH = "TGDD" + dem;
+                    }
+                    var bool = false;
+                    for (i=0;i<arrMaCH.length;i++){
+                        if (arrMaCH[i]==maCH){
+                            bool = true
+                        }
+                    }
+                    if (bool == false){
+                        break;
+                    }
+                    dem++;
                 }
-                if (bool == false){
-                    break;
-                }
-                dem++;
+                
+                $("#maCH").val(maCH);
+                $("#tenDiaDiem").val(tenCH);
             }
             
-            $("#maCH").val(maCH);
           }, 0);
     
     };  

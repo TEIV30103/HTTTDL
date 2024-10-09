@@ -16,7 +16,7 @@ function thongKe(req,res){
     let tenHH = req.body.tenHH;
     let tuNgay = req.body.tuNgay;
     let denNgay = req.body.denNgay;
-    db.query('SELECT hanghoa.dvt as dvt, chitiethoadon.maHD as maHD, chitiethoadon.soluong as soLuong, chitiethoadon.giatien as giaTien, hanghoa.tenHH as tenHH FROM hoadon , chitiethoadon , hanghoa , cuahang WHERE hoadon.maCH = cuahang.maCH and hoadon.maHD = chitiethoadon.maHD and chitiethoadon.maHH = hanghoa.maHH and cuahang.tenCH = ? and hanghoa.tenHH = ? and hoadon.ngay BETWEEN ? AND ?', [tenCH,tenHH,tuNgay,denNgay], function(error, results, fields) {
+    db.query('SELECT hanghoa.dvt as dvt, cuahang.tenCH as tenCH , chitiethoadon.maHD as maHD, chitiethoadon.soluong as soLuong, chitiethoadon.giatien as giaTien, hanghoa.tenHH as tenHH FROM hoadon , chitiethoadon , hanghoa , cuahang WHERE hoadon.maCH = cuahang.maCH and hoadon.maHD = chitiethoadon.maHD and chitiethoadon.maHH = hanghoa.maHH and cuahang.tenCH = ? and hanghoa.tenHH = ? and hoadon.ngay BETWEEN ? AND ?', [tenCH,tenHH,tuNgay,denNgay], function(error, results, fields) {
         if (error) {
             console.error('Error fetching data:', error);
             res.status(500).send('Error fetching data');
@@ -27,7 +27,17 @@ function thongKe(req,res){
             });
             // var sl = results[0].SL;
             var arr = results.map(result => result);
-            res.render('thongKe',{username:req.session.username , arrCH: req.session.arrCH , arrHH: req.session.arrHH , soLuong:sl , thongKe:arr});
+            // console.log(arr);
+            db.query('SELECT sum(chitiethoadon.soluong) as tongsoluong , sum(chitiethoadon.giatien) as tongdanhthu FROM hoadon , chitiethoadon , hanghoa , cuahang WHERE hoadon.maCH = cuahang.maCH and hoadon.maHD = chitiethoadon.maHD and chitiethoadon.maHH = hanghoa.maHH and cuahang.tenCH = ? and hoadon.ngay BETWEEN ? AND ?', [tenCH,tuNgay,denNgay], function(error, results, fields) {
+                if (error) {
+                    console.error('Error fetching data:', error);
+                    res.status(500).send('Error fetching data');
+                } else {
+                    var tsl= results[0].tongsoluong;
+                    var tdt= results[0].tongdanhthu;
+                    res.render('thongKe',{username:req.session.username , arrCH: req.session.arrCH , arrHH: req.session.arrHH , soLuong:sl , thongKe:arr , tongSoLuong:tsl , tongDanhThu:tdt , tuNgay:tuNgay , denNgay: denNgay});
+                }
+            })
         }
     });
 

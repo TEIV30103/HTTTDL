@@ -13,6 +13,13 @@ $(document).ready(function(){
             timKiem()
         }
     });
+
+    $("#thongTinTimKiem").keypress(function(event) {
+        if (event.which === 13) { // Kiểm tra nếu phím Enter được nhấn
+            timKiem();
+        }
+    });
+
 });
 
 function timKiem(){

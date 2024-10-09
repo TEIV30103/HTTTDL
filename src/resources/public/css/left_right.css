@@ -31,6 +31,7 @@ body{
 
 #right{
     width: 90%;
+    min-height: 615px;
     float: right;
     border-left: 1px solid black;
     background-color: rgb(215, 235, 229);
