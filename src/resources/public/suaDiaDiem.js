@@ -18,5 +18,6 @@ $(document).ready(function(){
     $("#kinhDo").val(kinhDo);
     var viDo = getParameterByName('viDo');
     $("#viDo").val(viDo);
-    $("#submit").val("Sửa")
+    if (tenCH != null)
+        $("#submit").val("Sửa")
 })

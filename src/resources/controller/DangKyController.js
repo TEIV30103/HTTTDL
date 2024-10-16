@@ -15,7 +15,13 @@ class dangKyController{
     // [/POST] /dangKy
         
     dangKy(req, res) {
-        dk(req,res)
+        let username = req.body.username;
+        let password = req.body.password;
+        let name = req.body.name;
+        dk(username,password,name,(error)=>{
+            if (error) throw error;
+            res.redirect('/');
+        })
     }
     
 }

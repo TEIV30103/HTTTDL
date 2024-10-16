@@ -11,14 +11,18 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-function dangKy(req,res){
-    let username = req.body.username;
-        let password = req.body.password;
-        let name = req.body.name;
-        db.query('INSERT INTO user (username ,password, tenNguoiDung) VALUES (?, ?, ?)', [username, password, name], function(error, results, fields) {
-            if (error) throw error;
-            res.redirect('/');
-        });
+// function dangKy(req,res){
+//     let username = req.body.username;
+//         let password = req.body.password;
+//         let name = req.body.name;
+//         db.query('INSERT INTO user (username ,password, tenNguoiDung) VALUES (?, ?, ?)', [username, password, name], function(error, results, fields) {
+//             if (error) throw error;
+//             res.redirect('/');
+//         });
+// }
+
+function dangKy(username,password,name,callback){
+    db.query('INSERT INTO user (username ,password, tenNguoiDung) VALUES (?, ?, ?)', [username, password, name], callback);
 }
 
 module.exports = dangKy

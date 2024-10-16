@@ -11,16 +11,23 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-function suaDiaDiem(req,res){
-    let maCH = req.body.maCH;
-    let tenDiaDiem = req.body.tenDiaDiem;
-    let kinhDo = req.body.kinhDo;
-    let viDo = req.body.viDo;
-    let hinhAnh = req.body.hinhAnh;
-    let diaChi = req.body.diaChi;
+// function suaDiaDiem(req,res){
+//     let maCH = req.body.maCH;
+//     let tenDiaDiem = req.body.tenDiaDiem;
+//     let kinhDo = req.body.kinhDo;
+//     let viDo = req.body.viDo;
+//     let hinhAnh = req.body.hinhAnh;
+//     let diaChi = req.body.diaChi;
 
-    db.query('UPDATE cuahang SET tenCh= ?,diaChi=?,img=?,kinhDo=?,viDo= ?WHERE maCH = ?', [tenDiaDiem,  diaChi , hinhAnh, kinhDo, viDo, maCH], function(error, results, fields) {
-        if (error) throw error;
-    });
+//     db.query('UPDATE cuahang SET tenCh= ?,diaChi=?,img=?,kinhDo=?,viDo= ?WHERE maCH = ?', [tenDiaDiem,  diaChi , hinhAnh, kinhDo, viDo, maCH], function(error, results, fields) {
+//         if (error) throw error;
+//     });
+// }
+
+
+function suaDiaDiem(maCH,tenDiaDiem,kinhDo,viDo,hinhAnh,diaChi,callback){
+    db.query('UPDATE cuahang SET tenCh= ?,diaChi=?,img=?,kinhDo=?,viDo= ?WHERE maCH = ?', [tenDiaDiem,  diaChi , hinhAnh, kinhDo, viDo, maCH], callback)
 }
+
+
 module.exports = suaDiaDiem

@@ -11,12 +11,17 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-function xoaDiaDiem(req,res){
-    let maCH = req.body.maCH;
+// function xoaDiaDiem(req,res){
+//     let maCH = req.body.maCH;
 
-    db.query('DELETE FROM cuahang WHERE maCH = ?', [maCH], function(error, results, fields) {
-        if (error) throw error;
-        res.redirect('/');
-    });
+//     db.query('DELETE FROM cuahang WHERE maCH = ?', [maCH], function(error, results, fields) {
+//         if (error) throw error;
+//         res.redirect('/');
+//     });
+// }
+
+function xoaDiaDiem(maCH, callback) {
+    db.query('DELETE FROM cuahang WHERE maCH = ?', [maCH], callback);
 }
+
 module.exports = xoaDiaDiem

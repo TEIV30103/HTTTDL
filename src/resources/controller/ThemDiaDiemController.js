@@ -11,7 +11,16 @@ class ThemDiaDiemController{
         }
 
         themDiaDiem(req,res){
-            tdd(req,res);
+            let maCH = req.body.maCH;
+            let tenDiaDiem = req.body.tenDiaDiem;
+            let kinhDo = req.body.kinhDo;
+            let viDo = req.body.viDo;
+            let hinhAnh = req.body.hinhAnh;
+            let diaChi = req.body.diaChi;
+            tdd(maCH,tenDiaDiem,kinhDo,viDo,hinhAnh,diaChi,(error)=>{
+                if (error) throw error;
+                res.redirect('/');
+            });
         }
 
 }

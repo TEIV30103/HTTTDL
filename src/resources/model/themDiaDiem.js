@@ -11,17 +11,22 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-function themDiaDiem(req,res){
-    let maCH = req.body.maCH;
-    let tenDiaDiem = req.body.tenDiaDiem;
-    let kinhDo = req.body.kinhDo;
-    let viDo = req.body.viDo;
-    let hinhAnh = req.body.hinhAnh;
-    let diaChi = req.body.diaChi;
+// function themDiaDiem(req,res){
+//     let maCH = req.body.maCH;
+//     let tenDiaDiem = req.body.tenDiaDiem;
+//     let kinhDo = req.body.kinhDo;
+//     let viDo = req.body.viDo;
+//     let hinhAnh = req.body.hinhAnh;
+//     let diaChi = req.body.diaChi;
 
-    db.query('INSERT INTO cuahang (maCH ,tenCH, kinhDo, viDo, img, diaChi) VALUES (?, ?, ?, ?, ?, ?)', [maCH,tenDiaDiem, kinhDo, viDo, hinhAnh, diaChi], function(error, results, fields) {
-        if (error) throw error;
-        res.redirect('/');
-    });
+//     db.query('INSERT INTO cuahang (maCH ,tenCH, kinhDo, viDo, img, diaChi) VALUES (?, ?, ?, ?, ?, ?)', [maCH,tenDiaDiem, kinhDo, viDo, hinhAnh, diaChi], function(error, results, fields) {
+//         if (error) throw error;
+//         res.redirect('/');
+//     });
+// }
+
+function themDiaDiem(maCH,tenDiaDiem,kinhDo,viDo,hinhAnh,diaChi,callback){
+    db.query('INSERT INTO cuahang (maCH ,tenCH, kinhDo, viDo, img, diaChi) VALUES (?, ?, ?, ?, ?, ?)', [maCH,tenDiaDiem, kinhDo, viDo, hinhAnh, diaChi], callback)
 }
+
 module.exports = themDiaDiem
