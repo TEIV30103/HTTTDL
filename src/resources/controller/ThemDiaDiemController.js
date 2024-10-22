@@ -15,7 +15,7 @@ class ThemDiaDiemController{
             let tenDiaDiem = req.body.tenDiaDiem;
             let kinhDo = req.body.kinhDo;
             let viDo = req.body.viDo;
-            let hinhAnh = req.body.hinhAnh;
+            let hinhAnh = req.file ? req.file.filename : null;
             let diaChi = req.body.diaChi;
             tdd(maCH,tenDiaDiem,kinhDo,viDo,hinhAnh,diaChi,(error)=>{
                 if (error) throw error;

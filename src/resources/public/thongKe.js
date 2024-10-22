@@ -1,7 +1,13 @@
 function thongKe(tenHHTK,soLuong,tongSoLuong){
-    $("#ketQuaTimKiem").css("display","block");
-        const labels = [tenHHTK,"Các sản phẩm còn lại"]
-        const data = [soLuong,tongSoLuong-soLuong]
+    $("#thongKeLuotBanDiv").css("display","block");
+        if (Array.isArray(tenHHTK)){
+            var labels = tenHHTK
+            var data = soLuong
+        }
+        else{
+            var labels = [tenHHTK,"Các sản phẩm còn lại"]
+            var data = [soLuong,tongSoLuong-soLuong]
+        }
         const barColors = ['rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
                                 'rgba(255, 206, 86, 0.2)',
@@ -38,9 +44,15 @@ function thongKe(tenHHTK,soLuong,tongSoLuong){
 }
 
 function thongKeDanhThu(tenHHTK,soLuong,tongSoLuong){
-    $("#ketQuaTimKiem").css("display","block");
-        const labels = [tenHHTK,"Các sản phẩm còn lại"]
-        const data = [soLuong,tongSoLuong-soLuong]
+    $("#thongKeDanhThuDiv").css("display","block");
+        if (Array.isArray(tenHHTK)){
+            var labels = tenHHTK
+            var data = soLuong
+        }
+        else{
+            var labels = [tenHHTK,"Các sản phẩm còn lại"]
+            var data = [soLuong,tongSoLuong-soLuong]
+        }
         const barColors = ['rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
                                 'rgba(255, 206, 86, 0.2)',

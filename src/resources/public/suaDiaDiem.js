@@ -6,14 +6,17 @@ $(document).ready(function(){
     var diaChi = getParameterByName('diaChi');
     $("#diaChi").val(diaChi);
     var img = getParameterByName('img');
-    fetch(img)
-    .then(response => response.blob())
-    .then(blob => {
-        const file = new File([blob], 'TGDD1.png', { type: blob.type }); // Đặt tên tệp và loại tệp
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        $("#hinhAnh").prop('files', dataTransfer.files); // Gán FileList vào input
-    });  
+    if(img != null){
+        $("#hinhAnhSua").val(img)
+        fetch(img)
+            .then(response => response.blob())
+            .then(blob => {
+            const file = new File([blob], img, { type: blob.type }); // Đặt tên tệp và loại tệp
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            $("#hinhAnh").prop('files', dataTransfer.files); // Gán FileList vào input
+        });  
+    }   
     var kinhDo = getParameterByName('kinhDo');
     $("#kinhDo").val(kinhDo);
     var viDo = getParameterByName('viDo');

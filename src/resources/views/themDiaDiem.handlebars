@@ -48,7 +48,7 @@
         <div id="right">
             <div id="mapThemDiaDiem" style="width: 95%;  height: 300px; border: 1px solid #000; margin: 5px 20px;"></div>
 
-            <form action="" method="post" style="width: 90%; margin-left: 25px; margin-top: 25px; float: left;">
+            <form action="" method="post" style="width: 90%; margin-left: 25px; margin-top: 25px; float: left;" enctype="multipart/form-data">
                 <div style="width: 50%; float:left">
                     <div class="form-outline form-white mb-2">
                         <label class="form-label" for="maCH">Mã Cửa Hàng</label>
@@ -75,7 +75,8 @@
                 <div style="width: 50%; float:right;">
                     <div class="form-outline form-white mb-2">
                         <label class="form-label" for="hinhAnh">Hình Ảnh</label>
-                        <input type="file" name="hinhAnh" id="hinhAnh" class="form-control form-control-lg" required readonly style="width: 90%;"/>
+                        <input type="file" name="hinhAnh" id="hinhAnh" class="form-control form-control-lg" required style="width: 90%;"/>
+                        <input type="text" name="hinhAnhSua" id="hinhAnhSua" hidden>
                     </div>
 
                     <div class="form-outline form-white mb-2">

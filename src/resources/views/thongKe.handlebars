@@ -33,7 +33,7 @@
                 {{!-- <input type="text" name="maCH" id="maCH" value=""> --}}
                 <p>Tên Cửa Hàng</p>
                 <select name="tenCH" id="tenCH">
-                    <option value="">Tên Cửa Hàng</option>
+                    <option value="%">Tất Cả Cửa Hàng</option>
                     {{#if arrCH}}
                         {{#each arrCH}}
                             <option value="{{this.tenCH}}">{{this.tenCH}}</option>
@@ -43,7 +43,7 @@
                 {{!-- <input type="text" name="maHH" value="" hidden> --}}
                 <p>Tên Hàng Hoá</p>
                 <select name="tenHH" id="tenHH">
-                    <option value="">Tên Hàng Hoá</option>
+                    <option value="%">Tất Cả Hàng Hoá</option>
                     {{#if arrHH}}
                         {{#each arrHH}}
                             <option value="{{this.tenHH}}">{{this.tenHH}}</option>
@@ -59,30 +59,40 @@
                 <input type="submit" value="Thống Kê">
             </form>
             <div id="ketQuaTimKiem">
-                <span>Số lượng: </span>
-                <span id="soLanBan">{{soLuong}}</span>
+                {{!-- <span>Số lượng: </span>
+                <span id="soLanBan">{{soLuong}}</span> --}}
                 <div>
-                    <button id="xemChiTiet">Xem chi tiết</button>
+                    {{!-- <button id="xemChiTiet">Xem chi tiết</button> --}}
                     <div id="thongTinXemChiTiet">
-                        <div>
-                            <div style="float: left; margin-right: 80px">
+                        <div style="width: 100%;">
+                            <div style="float: left; margin-left: 130px; display:none" id="thongKeLuotBanDiv">
                                 <canvas id="thongKeLuotBan" max-width="400" max-height="400"></canvas>
                             </div>
-                            <div style="float: right; margin-right: 140px">
+                            <div style="float: right; margin-right: 140px; display:none" id="thongKeDanhThuDiv">
                                 <canvas id="thongKeDanhThu" max-width="400" max-height="400"></canvas>
                             </div>
                         </div>
+                        <br><br><br><br><br>
                         <table>
                             <tr>
                                 <th>Mã hoá đơn</th>
+                                <th>Tên Của Hàng</th>
                                 <th>Hàng hoá</th>
+                                <th>Ngày lập</th>
                                 <th>Số lượng</th>
                                 <th>Giá tiền của sản phẩm</th>
                             </tr>
                             {{#each thongKe}}
                                 <tr>
                                     <td>{{this.maHD}}</td>
+                                    <td>{{this.tenCH}}</td>
                                     <td>{{this.tenHH}}</td>
+                                    <td id="ngay{{this.maHD}}">
+                                        <script>
+                                            var date = new Date("{{this.ngay}}");
+                                            $("#ngay{{this.maHD}}").html(date.toLocaleDateString('en-GB'))
+                                        </script>
+                                    </td>
                                     <td>{{this.soLuong}} {{this.dvt}}</td>
                                     
                                     <td id="{{this.giaTien}}">
@@ -110,25 +120,53 @@
     window.onload = function() {
 
         const tenCH = getParameterByName('tenCH');
-        $("#tenCH").val(tenCH);
+        if(tenCH != null)
+            $("#tenCH").val(tenCH);
 
         {{#if thongKe}}
+            $("#tenCH").val("{{tenCH}}");
+            $("#tenHH").val("{{tenHH}}");
             $("#tuNgay").val("{{tuNgay}}");
             $("#denNgay").val("{{denNgay}}");
-            var soLuong = {{soLuong}}
+
+            if("{{tenHH}}" == "%"){
+                var tenHHTK = [];
+                var danhThuHHTK =[];
+                var soLuong = [];
+                var arr = true;
+            }
+            else {
+                var tenHHTK = "{{tenHH}}";
+                var danhThuHHTK = 0;
+                var soLuong = {{soLuong}}
+                var arr = false;
+            }
+
             var tongSoLuong = {{tongSoLuong}}
             var tongDanhThu = {{tongDanhThu}}
-            var tenHHTK = "";
-            var danhThuHHTK = 0;
+            
             {{#each thongKe}}
-                $("#tenCH").val("{{this.tenCH}}");
-                $("#tenHH").val("{{this.tenHH}}");
-                tenHHTK = "{{this.tenHH}}"
-                danhThuHHTK += {{this.giaTien}}
+                if(arr){
+                    const index = tenHHTK.findIndex(item => item === "{{this.tenHH}}"); // Sửa cách sử dụng findIndex
+                    if(index !== -1){ // Kiểm tra nếu tìm thấy
+                        danhThuHHTK[index] += parseInt("{{this.giaTien}}"); // Chuyển đổi từ string sang int
+                        soLuong[index] += parseInt("{{this.soLuong}}");
+                    }
+                    else{
+                        tenHHTK.push("{{this.tenHH}}");
+                        danhThuHHTK.push(parseInt("{{this.giaTien}}")); // Chuyển đổi từ string sang int
+                        soLuong.push(parseInt("{{this.soLuong}}"));
+                    }
+                }
+                else{
+                    danhThuHHTK += parseInt("{{this.giaTien}}"); // Chuyển đổi từ string sang int
+                }
             {{/each}}
-            thongKe(tenHHTK,soLuong,tongSoLuong)
 
+            $("#ketQuaTimKiem").css("display","block");
+            thongKe(tenHHTK,soLuong,tongSoLuong)
             thongKeDanhThu(tenHHTK,danhThuHHTK,tongDanhThu)
+            
         {{/if}} 
     };  
     })();

@@ -48,7 +48,7 @@ class thongKeController{
                     } else {
                         var tsl= results[0].tongsoluong;
                         var tdt= results[0].tongdanhthu;
-                        res.render('thongKe',{username:req.session.username , arrCH: req.session.arrCH , arrHH: req.session.arrHH , soLuong:sl , thongKe:arr , tongSoLuong:tsl , tongDanhThu:tdt , tuNgay:tuNgay , denNgay: denNgay});
+                        res.render('thongKe',{username:req.session.username , arrCH: req.session.arrCH , arrHH: req.session.arrHH , soLuong:sl , thongKe:arr , tongSoLuong:tsl , tongDanhThu:tdt , tuNgay:tuNgay , denNgay: denNgay, tenCH: tenCH , tenHH:tenHH});
                     }
                 })
             }

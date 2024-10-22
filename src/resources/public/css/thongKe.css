@@ -33,7 +33,7 @@ form > p{
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 50px auto 10px auto;
     font-size: 18px;
     text-align: left;
 }

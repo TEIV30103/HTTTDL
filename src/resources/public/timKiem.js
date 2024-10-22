@@ -55,7 +55,7 @@ function searchLocation(location) {
                 });
                 google.maps.event.addListener(marker, 'click', function() {
                     var infowindow = new google.maps.InfoWindow({
-                        content: '<div style="width:200px"> <div> <img src="/img/'+location.img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+location.tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+location.diaChi+'</strong> <br> <br> <form method="post" action="/">    <input type="text" name="maCH" value="'+location.maCH+'" hidden /><button class="buttonXoa" type="submit">Xoá</button>  <input type="button" id="buttonThongKe'+location.maCH+'" class="buttonThongKe"  value="Thống Kê" /></form> </div> </div>'
+                        content: '<div style="width:200px"> <div> <img src="/img/'+location.img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+location.tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+location.diaChi+'</strong> <br> <br> <form method="post" action="/">    <input type="text" name="maCH" value="'+location.maCH+'" hidden /><button class="buttonXoa" type="submit">Xoá</button>  <input type="button" id="buttonThongKe'+location.maCH+'" class="buttonThongKe"  value="Thống Kê" /> <input type="button" id="buttonSua'+location.maCH+'" class="buttonThongKe"  value="Sửa Thông Tin" /></form> </div> </div>'
                         // content: '<div style="width:200px"> <div> <img src="/img/'+arrCH[i].img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+arrCH[i].tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+arrCH[i].diaChi+'</strong> <br> <br> <form method="get" action="/thongKe">    <input type="text" name="maCH" value="'+arrCH[i].maCH+'" hidden /><button class="buttonThongKe" type="submit">Thống Kê</button>  </form> </div> </div>'
                         
                     });
@@ -65,6 +65,11 @@ function searchLocation(location) {
                         $("#buttonThongKe"+location.maCH).click(function(){
                             console.log("123");
                             window.location.replace("/thongKe?tenCH="+location.tenCH)
+                        });
+
+                        $("#buttonSua"+location.maCH).click(function(){
+                            console.log("123");
+                            window.location.replace("/suaDiaDiem?maCH="+location.maCH+"&&tenCH="+location.tenCH+"&&diaChi="+location.diaChi+"&&img="+location.img+"&&kinhDo="+location.kinhDo+"&&viDo="+location.viDo)
                         });
                     });
                 })
@@ -84,7 +89,7 @@ function searchLocation(location) {
             });
             
             var infowindow = new google.maps.InfoWindow({
-                content: '<div style="width:200px"> <div> <img src="/img/'+location.img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+location.tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+location.diaChi+'</strong> <br> <br> <form method="post" action="/">    <input type="text" name="maCH" value="'+location.maCH+'" hidden /><button class="buttonXoa" type="submit">Xoá</button>  <input type="button" id="buttonThongKe'+location.maCH+'" class="buttonThongKe"  value="Thống Kê" /></form> </div> </div>'
+                content: '<div style="width:200px"> <div> <img src="/img/'+location.img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+location.tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+location.diaChi+'</strong> <br> <br> <form method="post" action="/">    <input type="text" name="maCH" value="'+location.maCH+'" hidden /><button class="buttonXoa" type="submit">Xoá</button>  <input type="button" id="buttonThongKe'+location.maCH+'" class="buttonThongKe"  value="Thống Kê" /> <input type="button" id="buttonSua'+location.maCH+'" class="buttonThongKe"  value="Sửa Thông Tin" /></form> </div> </div>'
                 // content: '<div style="width:200px"> <div> <img src="/img/'+arrCH[i].img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+arrCH[i].tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+arrCH[i].diaChi+'</strong> <br> <br> <form method="get" action="/thongKe">    <input type="text" name="maCH" value="'+arrCH[i].maCH+'" hidden /><button class="buttonThongKe" type="submit">Thống Kê</button>  </form> </div> </div>'
                 
             });
@@ -94,6 +99,30 @@ function searchLocation(location) {
                 $("#buttonThongKe"+location.maCH).click(function(){
                     console.log("123");
                     window.location.replace("/thongKe?tenCH="+location.tenCH)
+                });
+
+                $("#buttonSua"+location.maCH).click(function(){
+                    console.log("123");
+                    window.location.replace("/suaDiaDiem?maCH="+location.maCH+"&&tenCH="+location.tenCH+"&&diaChi="+location.diaChi+"&&img="+location.img+"&&kinhDo="+location.kinhDo+"&&viDo="+location.viDo)
+                });
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                var infowindow = new google.maps.InfoWindow({
+                  content: '<div style="width:200px"> <div> <img src="/img/'+location.img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+location.tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+location.diaChi+'</strong> <br> <br> <form method="post" action="/">    <input type="text" name="maCH" value="'+location.maCH+'" hidden /><button class="buttonXoa" type="submit">Xoá</button>  <input type="button" id="buttonThongKe'+location.maCH+'" class="buttonThongKe"  value="Thống Kê" /> <input type="button" id="buttonSua'+location.maCH+'" class="buttonThongKe"  value="Sửa Thông Tin" /></form> </div> </div>'
+                  // content: '<div style="width:200px"> <div> <img src="/img/'+location.img+'" alt="Image" style="width:200px;height:auto;"> </div>        <div style=" margin-top: 10px"><strong><b>Tên Cửa Hàng: </b>'+location.tenCH+'</strong><br> <br><strong><b>Địa Chỉ:</b>'+location.diaChi+'</strong> <br> <br> <form method="get" action="/thongKe">    <input type="text" name="maCH" value="'+location.maCH+'" hidden /><button class="buttonThongKe" type="submit">Thống Kê</button>  </form> </div> </div>'
+  
+                });
+                infowindow.open(map, marker);
+                
+                google.maps.event.addListenerOnce(infowindow, 'domready', function() {
+                  $("#buttonThongKe"+location.maCH).click(function(){
+                      location.replace("/thongKe?tenCH="+location.tenCH)
+                  });
+  
+                  $("#buttonSua"+location.maCH).click(function(){
+                      location.replace("/suaDiaDiem?maCH="+location.maCH+"&&tenCH="+location.tenCH+"&&diaChi="+location.diaChi+"&&img="+location.img+"&&kinhDo="+location.kinhDo+"&&viDo="+location.viDo)
+                  });
                 });
             });
         }

@@ -1,6 +1,7 @@
 $(document).ready(function(){
-    $("#thongTinXemChiTiet").hide()
-    $("#xemChiTiet").click(function(){
-        $("#thongTinXemChiTiet").show(800)
-    });
+    // $("#thongTinXemChiTiet").hide()
+    // $("#thongTinXemChiTiet").show(800)
+    // $("#xemChiTiet").click(function(){
+    //     $("#thongTinXemChiTiet").show(800)
+    // });
 });
