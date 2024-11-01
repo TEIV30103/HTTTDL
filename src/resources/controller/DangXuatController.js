@@ -5,6 +5,7 @@ class dangXuatController{
 
         index(req,res){
             req.session.username = null
+            req.session.arrTK = null
             res.redirect('dangNhap')
         }
 

@@ -44,7 +44,7 @@ app.use(session({
 // }
 
 function thongKeSoLuong(tenCH,tenHH,tuNgay,denNgay,callback){
-    db.query('SELECT hanghoa.dvt as dvt, cuahang.tenCH as tenCH , chitiethoadon.maHD as maHD, chitiethoadon.soluong as soLuong, chitiethoadon.giatien as giaTien, hanghoa.tenHH as tenHH , hoadon.ngay as ngay FROM hoadon , chitiethoadon , hanghoa , cuahang WHERE hoadon.maCH = cuahang.maCH and hoadon.maHD = chitiethoadon.maHD and chitiethoadon.maHH = hanghoa.maHH and cuahang.tenCH like ? and hanghoa.tenHH like ? and hoadon.ngay BETWEEN ? AND ?', [tenCH,tenHH,tuNgay,denNgay],callback)
+    db.query('SELECT hanghoa.dvt as dvt, cuahang.tenCH as tenCH , chitiethoadon.maHD as maHD, chitiethoadon.soluong as soLuong, chitiethoadon.giatien as giaTien, hanghoa.tenHH as tenHH, hanghoa.img as img , hoadon.ngay as ngay FROM hoadon , chitiethoadon , hanghoa , cuahang WHERE hoadon.maCH = cuahang.maCH and hoadon.maHD = chitiethoadon.maHD and chitiethoadon.maHH = hanghoa.maHH and cuahang.tenCH like ? and hanghoa.tenHH like ? and hoadon.ngay BETWEEN ? AND ?', [tenCH,tenHH,tuNgay,denNgay],callback)
 }
 
 module.exports = thongKeSoLuong

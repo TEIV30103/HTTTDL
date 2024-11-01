@@ -23,6 +23,16 @@ class homeController{
 
         xoaDiaDiem(req,res){
             let maCH = req.body.maCH;
+            let img = req.body.hinhAnh;
+
+            const fs = require('fs');
+            const path = require('path');
+
+            const oldImagePath = path.join(__dirname, '../public/img', img);
+            fs.unlink(oldImagePath, (err) => {
+                if (err) console.error('Lỗi khi xóa hình ảnh cũ:', err);
+            });
+
             xdd(maCH,(error)=>{
                 if (error) throw error;
                 res.redirect('/');

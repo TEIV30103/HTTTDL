@@ -30,10 +30,15 @@ form > p{
     display: none;
 }
 
+.table-container {
+    height: 200px; /* Đặt chiều cao cho phần tử cha */
+    overflow: auto; /* Hoặc scroll nếu bạn muốn thanh cuộn luôn hiển thị */
+    margin: 50px auto; /* Căn giữa nếu cần */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 50px auto 10px auto;
     font-size: 18px;
     text-align: left;
 }
@@ -65,4 +70,138 @@ tr:hover {
     margin-top: 15px;
     text-decoration: underline;
     background-color: transparent;
+}
+
+.KQTimKiem{
+    width: 80%;
+    height: 91%;
+    position: absolute;
+    top: 0;
+    z-index: 10; /* Đẩy lên trên */
+    left: 50%; /* Căn giữa */
+    transform: translateX(-50%); /* Đẩy ra giữa */
+    margin-top: 25px;
+    padding: 10px;
+    background-color: white;
+}
+
+#DongKQTimKiem{
+    float: right;
+    border: none;
+    width: 30px;
+    background-color: transparent;
+    font-weight: 700;
+}
+
+.spanThongTin{
+    font-size: medium;
+    width: 40%;
+    margin-left: 60px;
+}
+
+#xemTKCu{
+    position: absolute;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    background-color: transparent;
+    right: 0;
+}
+
+#TKCu{
+    position: absolute;
+    right:0;
+    margin-top: 60px;
+    margin-right: -800px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 750px;
+    z-index: 10;
+    transition: all 1s;
+    background-color: white;
+}
+
+ul {
+    list-style-type: none; /* Xóa dấu chấm đầu dòng */
+    padding: 0; /* Xóa padding mặc định */
+    height: 500px;
+    overflow-y: auto;
+}
+
+li {
+    background-color: #ffffff; /* Màu nền cho <li> */
+    border: 1px solid #ddd; /* Đường viền */
+    border-radius: 5px; /* Bo góc */
+    margin: 10px 0; /* Khoảng cách giữa các <li> */
+    padding: 15px; /* Padding bên trong <li> */
+    display: flex; /* Sử dụng flexbox để căn chỉnh */
+    justify-content: space-between; /* Căn chỉnh nội dung */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    transition: box-shadow 0.3s; /* Hiệu ứng chuyển tiếp cho bóng */
+}
+
+li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng khi hover */
+}
+
+.btn {
+    padding: 10px 15px; /* Padding cho nút */
+    border: none; /* Xóa đường viền */
+    border-radius: 5px; /* Bo góc cho nút */
+    background-color: #007bff; /* Màu nền cho nút */
+    color: white; /* Màu chữ */
+    cursor: pointer; /* Con trỏ khi hover */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển tiếp cho màu nền */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+
+#loiTK{
+    position: absolute;
+    top: 0;
+    left: 35%;
+    background-color: #f8d7da; /* Màu nền nhẹ nhàng */
+    color: #721c24; /* Màu chữ */
+    border: 1px solid #f5c6cb; /* Đường viền màu hồng nhạt */
+    border-radius: 5px; /* Bo góc */
+    padding: 15px; /* Khoảng cách bên trong */
+    margin: -20px 0; /* Khoảng cách bên ngoài */
+    font-family: Arial, sans-serif; /* Font chữ */
+    text-align: center; /* Căn giữa nội dung */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+#buttonLoiTK{
+    width: 30px;
+    border: none;
+    float: right;
+    background-color: transparent;
+}
+
+
+#tableTKCu {
+    width: 100%; /* Đặt chiều rộng bảng là 100% */
+    border-collapse: collapse; /* Gộp các đường viền */
+    margin-top: 20px; /* Khoảng cách trên cho bảng */
+}
+
+#tableTKCu th, #tableTKCu td {
+    border: 1px solid #ccc; /* Đường viền cho các ô */
+    padding: 10px; /* Khoảng cách bên trong cho các ô */
+    text-align: left; /* Căn trái cho văn bản */
+}
+
+#tableTKCu th {
+    background-color: #f2f2f2; /* Màu nền cho hàng tiêu đề */
+    font-weight: bold; /* Đậm chữ cho hàng tiêu đề */
+}
+
+#tableTKCu tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu nền cho các hàng chẵn */
+}
+
+#tableTKCu tr:hover {
+    background-color: #e0e0e0; /* Màu nền khi di chuột qua hàng */
 }

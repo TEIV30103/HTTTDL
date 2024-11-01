@@ -29,6 +29,30 @@
         </div>
 
         <div id="right">
+            <button id="xemTKCu">
+                Xem Lịch Sử
+                <br>
+                Thống Kê
+            </button>
+            <div id="TKCu">
+                <p>Lịch Sử Thổng Kê</p>
+                {{!-- <ul id="ulTKCu">
+                </ul> --}}
+                <table id="tableTKCu">
+                    <tr>
+                        <th>Tên Cửa Hàng</th>
+                        <th>Tên Hàng Hoá</th>
+                        <th>Từ Ngày</th>
+                        <th>Đến Ngày</th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+            <div id="loiTK">
+                <button id="buttonLoiTK">X</button>
+                <br>
+                <p>Thông tin đang tìm kiếm hiện không có</p>
+            </div> 
             <form action="" method="post">
                 {{!-- <input type="text" name="maCH" id="maCH" value=""> --}}
                 <p>Tên Cửa Hàng</p>
@@ -58,55 +82,43 @@
                 <input type="date" id="denNgay" name="denNgay" value="">
                 <input type="submit" value="Thống Kê">
             </form>
-            <div id="ketQuaTimKiem">
+            <div id="ketQuaTimKiem" class="KQTimKiem">
                 {{!-- <span>Số lượng: </span>
                 <span id="soLanBan">{{soLuong}}</span> --}}
+                <button id="DongKQTimKiem">X</button>
                 <div>
                     {{!-- <button id="xemChiTiet">Xem chi tiết</button> --}}
                     <div id="thongTinXemChiTiet">
                         <div style="width: 100%;">
-                            <div style="float: left; margin-left: 130px; display:none" id="thongKeLuotBanDiv">
+                            <span style="float: left;" class="spanThongTin" id="tenCuaHangSpan">  </span>
+                            <span style="float: right;" class="spanThongTin" id="tuNgaySpan">  </span>
+                            <span style="float: left;" class="spanThongTin" id="tenHangHoaSpan">  </span>
+                            <span style="float: right; margin-right: 38px;" class="spanThongTin" id="denNgaySpan">  </span>
+                        </div>
+
+                        <div style="width: 100%;">
+                            <div style="float: left; margin-left: 130px" id="thongKeLuotBanDiv">
                                 <canvas id="thongKeLuotBan" max-width="400" max-height="400"></canvas>
                             </div>
-                            <div style="float: right; margin-right: 140px; display:none" id="thongKeDanhThuDiv">
+                            <div style="float: right; margin-right: 140px" id="thongKeDanhThuDiv">
                                 <canvas id="thongKeDanhThu" max-width="400" max-height="400"></canvas>
                             </div>
                         </div>
-                        <br><br><br><br><br>
-                        <table>
-                            <tr>
-                                <th>Mã hoá đơn</th>
-                                <th>Tên Của Hàng</th>
-                                <th>Hàng hoá</th>
-                                <th>Ngày lập</th>
-                                <th>Số lượng</th>
-                                <th>Giá tiền của sản phẩm</th>
-                            </tr>
-                            {{#each thongKe}}
-                                <tr>
-                                    <td>{{this.maHD}}</td>
-                                    <td>{{this.tenCH}}</td>
-                                    <td>{{this.tenHH}}</td>
-                                    <td id="ngay{{this.maHD}}">
-                                        <script>
-                                            var date = new Date("{{this.ngay}}");
-                                            $("#ngay{{this.maHD}}").html(date.toLocaleDateString('en-GB'))
-                                        </script>
-                                    </td>
-                                    <td>{{this.soLuong}} {{this.dvt}}</td>
-                                    
-                                    <td id="{{this.giaTien}}">
-                                        <script>
-                                             
-                                            //document.getElementById("{{this.giaTien}}").innerHTML = Intl.NumberFormat('en-US').format({{this.giaTien}})
-                                            $("#{{this.giaTien}}").html(Intl.NumberFormat('en-US').format({{this.giaTien}}))
-                                        </script>
-                                        đ
-                                    </td>
-                                </tr>
-                            {{/each}}
-                        </table>
-                        
+                        <br><br><br><br><br><br><br><br><br><br>
+                        <div class="table-container">
+                            <table id="tableTK">
+                                <script>
+                                    clearTable()
+                                    setupTable()
+                                </script>
+                                {{#each thongKe}}
+                                    <script>
+                                        date = new Date("{{this.ngay}}");
+                                        updateTable("{{this.maHD}}","{{this.tenCH}}", "{{this.tenHH}}" ,date.toLocaleDateString('en-GB'),"{{this.soLuong}} {{this.dvt}}",Intl.NumberFormat('en-US').format({{this.giaTien}}),"{{this.img}}")
+                                    </script>
+                                {{/each}}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,34 +128,144 @@
 </html>
 
 <script>
-    (function() {
-    window.onload = function() {
-
+    $(document).ready(function(){
         const tenCH = getParameterByName('tenCH');
         if(tenCH != null)
             $("#tenCH").val(tenCH);
 
-        {{#if thongKe}}
+        {{#if loiTK}}
             $("#tenCH").val("{{tenCH}}");
             $("#tenHH").val("{{tenHH}}");
             $("#tuNgay").val("{{tuNgay}}");
             $("#denNgay").val("{{denNgay}}");
 
+            $("#loiTK").show(1000)
+            setTimeout(function(){
+                $("#loiTK").hide(500)
+            },3000)
+        {{/if}}
+
+        {{#if arrTK}}
+            let i =0;
+            var $li;
+            var $button
+            {{#each arrTK}}
+                $button = $('<button></button>').text("Xem chi tiết").attr('id','TK-'+i).addClass('btn')
+                if("{{this.tenCH}}" == "%")
+                    $tdTenCH = $('<td></td>').text("Tất cả")
+                else
+                    $tdTenCH = $('<td></td>').text("{{this.tenCH}}")
+                
+
+                if("{{this.tenHH}}" == "%")
+                    $tdTenHH = $('<td></td>').text("Tất cả")
+                else
+                    $tdTenHH = $('<td></td>').text("{{this.tenHH}}")
+                
+
+                $tr = $('<tr></tr>').append(
+                    $tdTenCH,
+                    $tdTenHH,
+                    $('<td></td>').text("{{this.tuNgay}}"),
+                    $('<td></td>').text("{{this.denNgay}}"),
+                    $('<td></td>').append($button)
+                )
+                $("#tableTKCu").append($tr);
+                $button.click(function(){
+                    
+                    if("{{this.tenCH}}" == "%"){
+                        tenHHTK = [];
+                        danhThuHHTK =[];
+                        soLuong = [];
+                        arr = true;
+                        $("#tenCuaHangSpan").html(" Tên Cửa Hàng: Tất cả của hàng");
+                    }
+                    else{
+                        tenHHTK = "{{tenHH}}";
+                        danhThuHHTK = 0;
+                        soLuong = {{soLuong}}
+                        arr = false;
+                        $("#tenCuaHangSpan").html(" Tên Cửa Hàng: {{this.tenCH}}");
+                    }
+
+
+                    if("{{this.tenHH}}" == "%")
+                        $("#tenHangHoaSpan").html("Tên Hàng Hoá: Tất cả hàng hoá");
+                    else
+                        $("#tenHangHoaSpan").html("Tên Hàng Hoá: {{this.tenHH}}");
+
+                    $("#tuNgaySpan").html("Từ Ngày: {{this.tuNgay}}");
+
+                    $("#denNgaySpan").html("Đến Ngày: {{this.denNgay}}");
+
+                    tongSoLuong = {{this.tongSoLuong}};
+                    tongDanhThu = {{this.tongDanhThu}};
+
+
+                    {{#each thongKe }}
+                        if(arr){
+                            const index = tenHHTK.findIndex(item => item === "{{this.tenHH}}"); // Sửa cách sử dụng findIndex
+                            if(index !== -1){ // Kiểm tra nếu tìm thấy
+                                danhThuHHTK[index] += parseInt("{{this.giaTien}}"); // Chuyển đổi từ string sang int
+                                soLuong[index] += parseInt("{{this.soLuong}}");
+                            }
+                            else{
+                                tenHHTK.push("{{this.tenHH}}");
+                                danhThuHHTK.push(parseInt("{{this.giaTien}}")); // Chuyển đổi từ string sang int
+                                soLuong.push(parseInt("{{this.soLuong}}"));
+                            }
+                        }
+                        else{
+                            danhThuHHTK += parseInt("{{this.giaTien}}"); // Chuyển đổi từ string sang int
+                        }
+                    {{/each}}
+                    $("#ketQuaTimKiem").show(1000,function(){
+                        showThongKe(tenHHTK,soLuong,tongSoLuong,danhThuHHTK,tongDanhThu)
+                            
+                        clearTable()
+                        setupTable()
+                        
+                        {{#each thongKe}}
+                            date = new Date("{{this.ngay}}");
+                            updateTable("{{this.maHD}}","{{this.tenCH}}", "{{this.tenHH}}" ,date.toLocaleDateString('en-GB'),"{{this.soLuong}} {{this.dvt}}",Intl.NumberFormat('en-US').format({{this.giaTien}}),"{{this.img}}")
+                        {{/each}}
+                    })
+                    {{!-- $("#ketQuaTimKiem").show(1000) --}}
+                    $("#xemTKCu").hide(1000)
+                    $("#TKCu").css("margin-right","-800px")
+                })
+            {{/each}}
+        {{/if}}
+
+        {{#if thongKe}}
+            $("#tenCH").val("{{tenCH}}");
+            if("{{tenCH}}" == "%")
+                $("#tenCuaHangSpan").html(" Tên Cửa Hàng: Tất cả của hàng");
+            else
+                $("#tenCuaHangSpan").html(" Tên Cửa Hàng: {{tenCH}}");
+            $("#tenHH").val("{{tenHH}}");
+            if("{{tenHH}}" == "%")
+                $("#tenHangHoaSpan").html("Tên Hàng Hoá: Tất cả hàng hoá");
+            else
+                $("#tenHangHoaSpan").html("Tên Hàng Hoá: {{tenHH}}");
+            $("#tuNgay").val("{{tuNgay}}");
+            $("#tuNgaySpan").html("Từ Ngày: {{tuNgay}}");
+            $("#denNgay").val("{{denNgay}}");
+            $("#denNgaySpan").html("Đến Ngày: {{denNgay}}");
             if("{{tenHH}}" == "%"){
-                var tenHHTK = [];
-                var danhThuHHTK =[];
-                var soLuong = [];
-                var arr = true;
+                tenHHTK = [];
+                danhThuHHTK =[];
+                soLuong = [];
+                arr = true;
             }
             else {
-                var tenHHTK = "{{tenHH}}";
-                var danhThuHHTK = 0;
-                var soLuong = {{soLuong}}
-                var arr = false;
+                tenHHTK = "{{tenHH}}";
+                danhThuHHTK = 0;
+                soLuong = {{soLuong}}
+                arr = false;
             }
-
-            var tongSoLuong = {{tongSoLuong}}
-            var tongDanhThu = {{tongDanhThu}}
+            tongSoLuong = {{tongSoLuong}}
+            tongDanhThu = {{tongDanhThu}}
             
             {{#each thongKe}}
                 if(arr){
@@ -162,15 +284,11 @@
                     danhThuHHTK += parseInt("{{this.giaTien}}"); // Chuyển đổi từ string sang int
                 }
             {{/each}}
-
-            $("#ketQuaTimKiem").css("display","block");
-            thongKe(tenHHTK,soLuong,tongSoLuong)
-            thongKeDanhThu(tenHHTK,danhThuHHTK,tongDanhThu)
-            
+            showThongKe(tenHHTK,soLuong,tongSoLuong,danhThuHHTK,tongDanhThu)
+        {{else}}    
+            {{#if arrTK}}
+                $("#xemTKCu").show()
+            {{/if}}
         {{/if}} 
-    };  
-    })();
-
-    
+    })
 </script>
-
